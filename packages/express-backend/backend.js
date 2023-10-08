@@ -24,7 +24,7 @@ const users = {
           job: 'Professor',
        }, 
        {
-          id: 'yat999', 
+          id: 'pudi121', 
           name: 'Dee',
           job: 'Aspring actress',
        },
@@ -36,10 +36,25 @@ const users = {
     ]
  }
 
-app.get('/users', (req, res) => { //endpoint to acceot http GET requests
-    res.send(users); //processes request and response is a simple text
-});
+ //?: prompts query 
+ //query argument + = : searches for a match in that query argument
+ const findUserByName = (name) => { 
+    return users['users_list']
+        .filter( (user) => user['name'] === name); //filtering based on argument
+}
+
+app.get('/users', (req, res) => {//endpoint to acceot http GET requests
+    const name = req.query.name;
+    if (name != undefined){
+        let result = findUserByName(name);
+        result = {users_list: result};
+        res.send(result);
+    }
+    else{
+        res.send(users);//processes request 
+    }
+})
 
 app.listen(port, () => { //has backend server listen to incoming requests on defined port
-    console.log(`Example app listening at http://localhost:${port}/users`);
+    console.log(`Example app listening at http://localhost:${port}`);
 }); 
