@@ -5,10 +5,11 @@ import React from "react";
 //naming convention for React components: capitalized, different from HTML elements
 
 
-function TableHeader() { //header of columns, name and job
+function TableHeader() { //header of columns, id, name, and job
     return (
       <thead>
         <tr>
+          <th>ID</th>
           <th>Name</th>
           <th>Job</th>
         </tr>
@@ -20,8 +21,9 @@ function TableHeader() { //header of columns, name and job
     const rows = props.characterData.map((row, index) => {
       return (
         <tr key={index}>
+          <td>{row.id}</td>
           <td>{row.name}</td>
-	      <td>{row.job}</td>
+	        <td>{row.job}</td>
 	      <td>
 			        <button onClick={() => 
 				        props.removeCharacter(index)}>

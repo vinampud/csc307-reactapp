@@ -59,7 +59,7 @@ function MyApp() {
         })
         .catch((error) => {
           console.log(error);
-        });
+        })
     }
 
     return (
