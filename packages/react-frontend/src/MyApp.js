@@ -44,13 +44,23 @@ function MyApp() {
       setCharacters(updated);
     }
 
-    function updateList(person) { 
-      postUser(person) //promise, only uodate once fulfilled
-        .then(() => setCharacters([...characters, person]))
+    function updateList(person) {
+      postUser(person)
+        .then((response) => {
+          if (response.status === 201) { // Check if the response code is 201 (Created)
+            return response.json(); // Parse the response data
+          } else {
+            throw new Error('Failed to create user'); // Throw an error for non-201 responses
+          }
+        })
+        .then((createdPerson) => {
+          // Only update the list when a 201 status is received
+          setCharacters([...characters, createdPerson]);
+        })
         .catch((error) => {
           console.log(error);
-        })
-  }
+        });
+    }
 
     return (
         <div className="container">
