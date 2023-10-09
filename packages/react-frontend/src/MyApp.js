@@ -18,6 +18,18 @@ function MyApp() {
     // But instead of waiting for the response, it returns immediately with a promise. 
     // This promise will be fulfilled when the response is received back from the server.
     
+    function postUser(person) {
+      const promise = fetch("Http://localhost:8000/users", {
+        method: "POST", //makes POST instead of GET
+        headers: {
+          "Content-Type": "application/json", //to tell the server that the body contains a JSON-formatted object
+        },
+        body: JSON.stringify(person), //to put the person data into the body of the request
+      });
+  
+      return promise;
+    }
+
     useEffect(() => {//when the promise returned by fetchUsers is fulfilled, we want to set the component state using setCharacters:
       fetchUsers()
         .then((res) => res.json()) // returns a promise, which is only fulfilled when the data is successfully decoded.
@@ -32,9 +44,13 @@ function MyApp() {
       setCharacters(updated);
     }
 
-    function updateList(person) {
-        setCharacters([...characters, person]);
-      }
+    function updateList(person) { 
+      postUser(person) //promise, only uodate once fulfilled
+        .then(() => setCharacters([...characters, person]))
+        .catch((error) => {
+          console.log(error);
+        })
+  }
 
     return (
         <div className="container">
