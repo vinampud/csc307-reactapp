@@ -37,12 +37,27 @@ function MyApp() {
         .catch((error) => { console.log(error); });
     }, [] );
 
-    function removeOneCharacter (index) {
-      const updated = characters.filter((character, i) => {
-        return i !== index
+    function removeOneCharacter(id) {
+      fetch(`http://localhost:8000/users/${id}`, {
+          method: 'DELETE', // Specify the DELETE method
+      })
+      .then((response) => {
+          if (response.status === 204) {
+              // User deleted successfully, so update the frontend state
+              //filtering by which ever users don't match the given ID
+              setCharacters(characters.filter((character) => character.id !== id));
+          } else if (response.status === 404) {
+              // User not found, handle this case if necessary
+              console.log('User not found.');
+          } else {
+              // Handle other status codes if needed
+              console.log('Failed to delete user.');
+          }
+      })
+      .catch((error) => {
+          console.log(error);
       });
-      setCharacters(updated);
-    }
+  }
 
     function updateList(person) {
       postUser(person)

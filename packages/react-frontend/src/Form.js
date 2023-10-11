@@ -12,15 +12,15 @@ function Form(props) {
 
   function handleChange(event) {
     const { name, value } = event.target;
-    const randomID = generateRandomID();
+    
     
     if (name === "job")
       setPerson(
-         {id: randomID, name: person['name'], job: value}
+         {id: '', name: person['name'], job: value}
       );
     else     
        setPerson(
-         {id: randomID, name: value, job: person['job']}   
+         {id: '', name: value, job: person['job']}   
        );
   }
 
@@ -29,25 +29,7 @@ function Form(props) {
     setPerson({id: '', name: '', job: ''});
   }
 
-  function generateRandomID() {
-    const letters = 'abcdefghijklmnopqrstuvwxyz';
-    const numbers = '0123456789';
-    let randomID = '';
   
-    // Generate 3 random lowercase letters
-    for (let i = 0; i < 3; i++) {
-      const randomLetter = letters[Math.floor(Math.random() * letters.length)];
-      randomID += randomLetter;
-    }
-  
-    // Generate 3 random numbers
-    for (let i = 0; i < 3; i++) {
-      const randomNumber = numbers[Math.floor(Math.random() * numbers.length)];
-      randomID += randomNumber;
-    }
-  
-    return randomID;
-  }
   
 
 

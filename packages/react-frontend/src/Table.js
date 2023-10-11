@@ -17,16 +17,17 @@ function TableHeader() { //header of columns, id, name, and job
     );
   }
  
+  //allows for deleting user of a specific provided id rather than just deleting any user of random index
   function TableBody(props) {
-    const rows = props.characterData.map((row, index) => {
+    const rows = props.characterData.map((row) => {
       return (
-        <tr key={index}>
+        <tr key={row.id}> 
           <td>{row.id}</td>
           <td>{row.name}</td>
 	        <td>{row.job}</td>
 	      <td>
 			        <button onClick={() => 
-				        props.removeCharacter(index)}>
+				        props.removeCharacter(row.id)}>
 				        Delete
 			        </button>
 	      </td>

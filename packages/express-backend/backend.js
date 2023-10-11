@@ -87,9 +87,32 @@ app.get('/users/:id', (req, res) => {
 })
 
 const addUser = (user) => {
+    const randomID = generateRandomID();
+    user.id = randomID;
+    //How do I assign randomID to user's ID?
     users['users_list'].push(user);
     return user;
 }
+
+function generateRandomID() {
+    const letters = 'abcdefghijklmnopqrstuvwxyz';
+    const numbers = '0123456789';
+    let randomID = '';
+  
+    // Generate 3 random lowercase letters
+    for (let i = 0; i < 3; i++) {
+      const randomLetter = letters[Math.floor(Math.random() * letters.length)];
+      randomID += randomLetter;
+    }
+  
+    // Generate 3 random numbers
+    for (let i = 0; i < 3; i++) {
+      const randomNumber = numbers[Math.floor(Math.random() * numbers.length)];
+      randomID += randomNumber;
+    }
+  
+    return randomID;
+  }
 
 app.post('/users', (req, res) => {
     const userToAdd = req.body;
